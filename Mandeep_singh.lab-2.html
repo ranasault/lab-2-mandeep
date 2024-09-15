@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parsing Data</title>
+</head>
+
+<body>
+    <script>
+
+        function getByHealth() {
+
+            const count = document.getElementById("health-count").value
+            const jsonUrl = "https://api.thecatapi.com/v1/breeds";
+            const x = document.getElementById("content")
+            x.innerHTML=""
+
+            if(!count) return
+let numofcat=0
+
+            fetch(jsonUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Something went wrong.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    x.appendChild(document.createTextNode(`for cats with health issue: ${count}`));
+                    x.appendChild(document.createElement("br"))
+
+                    Object.values(data).forEach(value => {
+                        const lineBreak = document.createElement('br');
+                        if (value.
+                            health_issues == count) {
+                                numofcat++
+                                x.appendChild(document.createTextNode(value.name));
+                            x.appendChild(lineBreak);
+                        }
+                        
+
+                    });
+                    x.appendChild(document.createTextNode(`No. of cats: ${numofcat}`));
+
+
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                });
+        }
+        function loadCatname() {
+
+            const jsonUrl = "https://api.thecatapi.com/v1/breeds";
+            const x = document.getElementById("content")
+            x.innerHTML=""
+
+            fetch(jsonUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Something went wrong.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    Object.values(data).forEach(value => {
+                        const lineBreak = document.createElement('br');
+                        x.appendChild(document.createTextNode(value.name));
+                        x.appendChild(lineBreak);
+
+                    });
+
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                });
+
+
+        }
+
+        function weight() {
+            const count = document.getElementById("health-count").value
+            const jsonUrl = "https://api.thecatapi.com/v1/breeds";
+            const x = document.getElementById("content")
+            x.innerHTML=""
+            const metricID=document.getElementById("Metric")
+            let unit;
+            if (metricID.checked){
+unit="metric"
+            }
+            else{
+                unit="imperial"
+            }
+
+
+            fetch(jsonUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Something went wrong.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    Object.values(data).forEach(value => {
+                        const lineBreak = document.createElement('br');
+                                x.appendChild(document.createTextNode(value.weight[unit]));
+                            x.appendChild(lineBreak);
+
+                    });
+
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                });
+        }
+
+function loadCatname() {
+
+            const jsonUrl = "https://api.thecatapi.com/v1/breeds";
+            const x = document.getElementById("content")
+
+            fetch(jsonUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Something went wrong.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    Object.values(data).forEach(value => {
+                        const lineBreak = document.createElement('br');
+                        x.appendChild(document.createTextNode(value.name));
+                        x.appendChild(lineBreak);
+
+                    });
+
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                });
+
+
+        }
+
+function getbyIntelligence() {
+const jsonUrl = "https://api.thecatapi.com/v1/breeds";
+const x = document.getElementById("content")
+x.innerHTML=""
+
+
+fetch(jsonUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Something went wrong.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        x.appendChild(  document.createTextNode(`F-H`))
+        x.appendChild(document.createElement("br"));
+
+        
+        Object.values(data).forEach(value => {
+            const lineBreak = document.createElement('br');
+
+            x.appendChild(document.createTextNode(`${value.intelligence} ${value.dog_friendly}`));
+
+            x.appendChild(lineBreak);
+
+        });
+
+    })
+    .catch(error => {
+        console.error('Error fetching JSON:', error);
+    });
+
+
+}
+
+function getbyAverageIntelligence() {
+
+const jsonUrl = "https://api.thecatapi.com/v1/breeds";
+const x = document.getElementById("content")
+document.getElementById("content").innerHTML=""
+
+
+fetch(jsonUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Something went wrong.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        let intelligence=0
+        let count=0
+        Object.values(data).forEach(value => {
+            intelligence+=value.intelligence
+            count++
+        });
+        let averageIntelligence=(intelligence/count).toFixed(2)
+        x.innerText=`Average intelligence : ${averageIntelligence}`
+
+    })
+    .catch(error => {
+        console.error('Error fetching JSON:', error);
+    });
+
+
+}
+function getbyAverageIntelligenceforchild() {
+    document.getElementById("content").innerHTML=""
+
+const jsonUrl = "https://api.thecatapi.com/v1/breeds";
+const x = document.getElementById("content")
+
+fetch(jsonUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Something went wrong.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        let intelligence=0
+        let count=0
+
+        const newData=data.filter((val)=>val.child_friendly ==4)
+        Object.values(newData).forEach(value => {
+            intelligence+=value.intelligence
+            count++
+        });
+        let averageIntelligence=(intelligence/count).toFixed(2)
+        x.innerText=`Average intelligence : ${averageIntelligence}`
+
+    })
+    .catch(error => {
+        console.error('Error fetching JSON:', error);
+    });
+
+
+}
+
+    </script>
+
+
+     
+    <button onclick="loadCatname()">All Names</button><br> <br>
+    <button onclick="getByHealth()">Health Issues</button>
+    <input type="text" id="health-count" name="name"><br><br>
+
+    <input type="radio" id="forImperical" name="Catdata"  checked>
+    <label for="forImperical" >Imperial</label>
+    <input type="radio" id="Metric" name="Catdata" >
+    <label for="Metric">Metric</label>
+    <button onclick="weight()">Weight</button><br><br>
+
+    <button onclick="getbyIntelligence()" style="margin: 10px 0px; display: block">Intelligence - Friendly</button>
+    <button onclick="getbyAverageIntelligence()">Average Intelligence</button>
+    <button onclick="getbyAverageIntelligenceforchild()" style="margin: 10px 0px; display: block">Average Intelligence for Child
+        Friendly</button>
+
+
+    <p id="content"></p>
+
+
+</body>
+
+</html>
